@@ -1,0 +1,23 @@
+import sqlite3
+
+conn = sqlite3.connect('usuarios.db')
+cursor = conn.cursor()
+
+cursor.execute('''
+CREATE TABLE IF NOT EXISTS servicios (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nombre TEXT NOT NULL,
+    apellido TEXT NOT NULL,
+    correo TEXT NOT NULL,
+    rut TEXT NOT NULL,
+    telefono TEXT NOT NULL,
+    patente TEXT NOT NULL,
+    marca TEXT NOT NULL,
+    modelo TEXT NOT NULL,
+    año INTEGER NOT NULL,
+    combustible TEXT NOT NULL
+)
+''')
+
+conn.commit()
+conn.close()

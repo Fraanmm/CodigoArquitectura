@@ -1,68 +1,78 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
-from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+import sqlite3
 
 app = Flask(__name__)
-app.secret_key = 'clave_secreta'
+app.secret_key = 'mi_clave_secreta'  # Asegúrate de cambiar esto a algo más seguro en producción
 
-
-login_manager = LoginManager()
-login_manager.init_app(app)
-login_manager.login_view = 'login' 
-
-
-servicios = [
-    {"id": 1, "nombre": "Cambio de Aceite", "imagen": "static/images/cambioAceite.jpg"},
-    {"id": 2, "nombre": "Revisión General", "imagen": "static/images/revisionGeneral.jpg"},
-    {"id": 3, "nombre": "Alineación y Balanceo", "imagen": "static/images/alineacionBalanceo.jpg"},
-    {"id": 4, "nombre": "Frenos", "imagen": "static/images/frenos.jpg"},
-    {"id": 5, "nombre": "Cambio de Batería", "imagen": "static/images/cambioBateria.jpg"},
-    {"id": 6, "nombre": "Cambio de Bujías", "imagen": "static/images/cambioBujias.jpg"},
-]
-
-
-usuarios = {"admin": "12345"}
-
-
-class User(UserMixin):
-    def __init__(self, id):
-        self.id = id
-
-
-@login_manager.user_loader
-def load_user(user_id):
-    return User(user_id)
-
+# Ruta de inicio
 @app.route('/')
 def index():
-    return render_template('index.html', servicios=servicios)
+    return render_template('index.html')
 
+# Ruta de inicio de sesión
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        username = request.form['username']
+        correo = request.form['correo']
         password = request.form['password']
-        if username in usuarios and usuarios[username] == password:
-            user = User(username)
-            login_user(user)  # Iniciar sesión
-            return redirect(url_for('index'))
+
+        # Lógica para verificar las credenciales en la base de datos
+        conn = sqlite3.connect('usuarios.db')
+        cursor = conn.cursor()
+        cursor.execute('SELECT * FROM usuarios WHERE correo=? AND password=?', (correo, password))
+        user = cursor.fetchone()
+        conn.close()
+
+        if user:
+            return redirect(url_for('cuenta'))
         else:
-            flash("Usuario o contraseña incorrectos", "danger")
+            flash('Correo o contraseña incorrectos', 'danger')
+            return redirect(url_for('login'))
+
     return render_template('login.html')
 
-@app.route('/servicio/<int:id>')
-@login_required  
-def servicio(id):
-    servicio_seleccionado = next((s for s in servicios if s['id'] == id), None)
-    if servicio_seleccionado:
-        return render_template('servicio.html', servicio=servicio_seleccionado)
-    else:
-        return "Servicio no encontrado", 404
+# Ruta de registro
+@app.route('/registro', methods=['GET', 'POST'])
+def registro():
+    if request.method == 'POST':
+        nombre = request.form['nombre']
+        apellido = request.form['apellido']
+        correo = request.form['correo']
+        password = request.form['password']
 
-@app.route('/logout')
-def logout():
-    logout_user()  
-    return redirect(url_for('index'))
+        # Guardar en la base de datos
+        conn = sqlite3.connect('usuarios.db')
+        cursor = conn.cursor()
+        cursor.execute('INSERT INTO usuarios (nombre, apellido, correo, password) VALUES (?, ?, ?, ?)', 
+                       (nombre, apellido, correo, password))
+        conn.commit()
+        conn.close()
+
+        flash('Registro exitoso, por favor inicie sesión.', 'success')
+        return redirect(url_for('login'))
+
+    return render_template('registro.html')
+
+# Ruta para mostrar la cuenta del usuario
+@app.route('/cuenta', methods=['GET', 'POST'])
+def cuenta():
+    if request.method == 'POST':
+        # Aquí puedes implementar lógica para actualizar la cuenta
+        pass
+
+    return render_template('cuenta.html')
+
+# Ruta para registrar un servicio
+@app.route('/registroServicios', methods=['GET', 'POST'])
+def registro_servicios():
+    if request.method == 'POST':
+        # Lógica para registrar el servicio
+        pass
+    return render_template('registroServicios.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+
+
 
