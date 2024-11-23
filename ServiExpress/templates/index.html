@@ -49,6 +49,10 @@
                         <h5 class="card-title">Alineacion Y Balanceo</h5>
                         <p class="card-text">Descripción breve del servicio 1 que ofrecemos.</p>
                     </div>
+                    <!-- Botón al pasar el mouse -->
+                    <div class="card-footer text-center">
+                        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#serviceModal" data-service="registroServicio">Contratar Servicio</button>
+                    </div>
                 </div>
             </div>
             <!-- Servicio 2 -->
@@ -58,6 +62,10 @@
                     <div class="card-body">
                         <h5 class="card-title">Cambio Aceite</h5>
                         <p class="card-text">Descripción breve del servicio 2 que ofrecemos.</p>
+                    </div>
+                    <!-- Botón al pasar el mouse -->
+                    <div class="card-footer text-center">
+                        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#serviceModal" data-service="registroServicio">Contratar Servicio</button>
                     </div>
                 </div>
             </div>
@@ -69,6 +77,10 @@
                         <h5 class="card-title">Cambio Bateria</h5>
                         <p class="card-text">Descripción breve del servicio 3 que ofrecemos.</p>
                     </div>
+                    <!-- Botón al pasar el mouse -->
+                    <div class="card-footer text-center">
+                        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#serviceModal" data-service="registroServicio">Contratar Servicio</button>
+                    </div>
                 </div>
             </div>
             <!-- Servicio 4 -->
@@ -78,6 +90,10 @@
                     <div class="card-body">
                         <h5 class="card-title">Cambio Bujías</h5>
                         <p class="card-text">Descripción breve del servicio 4 que ofrecemos.</p>
+                    </div>
+                    <!-- Botón al pasar el mouse -->
+                    <div class="card-footer text-center">
+                        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#serviceModal" data-service="registroServicio">Contratar Servicio</button>
                     </div>
                 </div>
             </div>
@@ -89,6 +105,10 @@
                         <h5 class="card-title">Frenos</h5>
                         <p class="card-text">Descripción breve del servicio 5 que ofrecemos.</p>
                     </div>
+                    <!-- Botón al pasar el mouse -->
+                    <div class="card-footer text-center">
+                        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#serviceModal" data-service="registroServicio">Contratar Servicio</button>
+                    </div>
                 </div>
             </div>
             <!-- Servicio 6 -->
@@ -99,6 +119,27 @@
                         <h5 class="card-title">Revision General</h5>
                         <p class="card-text">Descripción breve del servicio 6 que ofrecemos.</p>
                     </div>
+                    <!-- Botón al pasar el mouse -->
+                    <div class="card-footer text-center">
+                        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#serviceModal" data-service="registroServicio">Contratar Servicio</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para elegir opción -->
+    <div class="modal fade" id="serviceModal" tabindex="-1" aria-labelledby="serviceModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="serviceModalLabel">¿Qué deseas hacer?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Deseas continuar como invitado o iniciar sesión?</p>
+                    <a href="{{ url_for('registroServicio') }}" class="btn btn-secondary">Continuar como invitado</a>
+                    <a href="{{ url_for('login') }}" class="btn btn-primary">Iniciar sesión</a>
                 </div>
             </div>
         </div>

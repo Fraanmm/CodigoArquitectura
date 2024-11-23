@@ -34,3 +34,29 @@ function validarTelefono(telefono) {
 function volver() {
     alert('Volver presionado');
 }
+/*  */
+// Script para manejar el hover sobre las cartas de servicios
+document.querySelectorAll('.servicio-card').forEach(card => {
+    card.addEventListener('mouseenter', function() {
+        // Cambiar el estilo o mostrar algo extra al pasar el mouse por encima
+        this.querySelector('button').style.display = 'block';  // Muestra el botón al pasar el mouse
+    });
+    
+    card.addEventListener('mouseleave', function() {
+        // Ocultar el botón cuando se quita el mouse
+        this.querySelector('button').style.display = 'none';
+    });
+});
+
+// Este código es para asegurarse de que el modal se muestra correctamente
+var modal = document.getElementById('modalServicio');
+var modalInstance = new bootstrap.Modal(modal);
+
+modal.addEventListener('shown.bs.modal', function () {
+    console.log('El modal ha sido mostrado');
+});
+
+modal.addEventListener('hidden.bs.modal', function () {
+    console.log('El modal ha sido cerrado');
+});
+/*  */

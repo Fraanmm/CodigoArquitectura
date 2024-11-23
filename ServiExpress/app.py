@@ -62,7 +62,11 @@ def login():
 
     return render_template('login.html')
 
+# Ruta para el registro de servicio
+@app.route('/registroServicio')
+def registroServicio():
+    # Aquí va la lógica para manejar el registro del servicio
+    return render_template('registroServicio.html')  # O la plantilla que necesites
+
 if __name__ == '__main__':
     app.run(debug=True)
-
-
