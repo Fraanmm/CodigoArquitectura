@@ -8,10 +8,28 @@
 <body>
     <h1>Mi Cuenta</h1>
     <form method="POST" action="{{ url_for('cuenta') }}">
+        <!-- Datos del usuario -->
         <input type="text" name="nombre" value="{{ usuario['nombre'] }}" placeholder="Nombre">
         <input type="email" name="correo" value="{{ usuario['correo'] }}" placeholder="Correo">
         <input type="text" name="datos_bancarios" value="{{ usuario.get('datos_bancarios', '') }}" placeholder="Datos Bancarios">
+
+        <!-- Datos del auto -->
+        <h3>Datos del Auto</h3>
+        <input type="text" name="marca_auto" value="{{ usuario.get('marca_auto', '') }}" placeholder="Marca del Auto">
+        <input type="text" name="modelo_auto" value="{{ usuario.get('modelo_auto', '') }}" placeholder="Modelo del Auto">
+        <input type="text" name="anio_auto" value="{{ usuario.get('anio_auto', '') }}" placeholder="Año del Auto">
+        <input type="text" name="patente_auto" value="{{ usuario.get('patente_auto', '') }}" placeholder="Patente del Auto">
+
+        <!-- Servicios realizados -->
+        <h3>Servicios Realizados</h3>
+        <ul>
+            {% for servicio in servicios_realizados %}
+                <li>{{ servicio['nombre'] }} - {{ servicio['fecha'] }}</li>
+            {% endfor %}
+        </ul>
+
         <button type="submit">Actualizar</button>
     </form>
 </body>
 </html>
+

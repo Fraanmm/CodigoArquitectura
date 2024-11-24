@@ -70,3 +70,36 @@ def registroServicio():
 
 if __name__ == '__main__':
     app.run(debug=True)
+@app.route('/mi_cuenta', methods=['GET', 'POST'])
+def cuenta():
+    # Simulando obtener datos del usuario y los servicios realizados de una base de datos
+    usuario = {
+        'nombre': 'Juan Perez',
+        'correo': 'juanperez@example.com',
+        'datos_bancarios': 'Cuenta corriente 1234',
+        'marca_auto': 'Toyota',
+        'modelo_auto': 'Corolla',
+        'anio_auto': '2020',
+        'patente_auto': 'ABC1234'
+    }
+    
+    servicios_realizados = [
+        {'nombre': 'Cambio de Aceite', 'fecha': '2024-05-10'},
+        {'nombre': 'Alineación y Balanceo', 'fecha': '2024-06-15'},
+    ]
+
+    # Si el método es POST, actualizamos los datos (esto es solo un ejemplo)
+    if request.method == 'POST':
+        usuario['nombre'] = request.form['nombre']
+        usuario['correo'] = request.form['correo']
+        usuario['datos_bancarios'] = request.form['datos_bancarios']
+        usuario['marca_auto'] = request.form['marca_auto']
+        usuario['modelo_auto'] = request.form['modelo_auto']
+        usuario['anio_auto'] = request.form['anio_auto']
+        usuario['patente_auto'] = request.form['patente_auto']
+        # Guardar los cambios en la base de datos, etc.
+
+        # Redirigir o mostrar un mensaje de éxito
+        return redirect(url_for('cuenta'))
+
+    return render_template('mi_cuenta.html', usuario=usuario, servicios_realizados=servicios_realizados)
