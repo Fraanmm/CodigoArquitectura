@@ -1,9 +1,17 @@
-CREATE TABLE IF NOT EXISTS usuarios (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,  
-    nombre TEXT NOT NULL,                  
-    apellido TEXT NOT NULL,                
-    correo TEXT NOT NULL UNIQUE,           
-    password TEXT NOT NULL                
-);
+def crear_tabla():
+    conn = sqlite3.connect('usuarios.db')
+    cursor = conn.cursor()
+    cursor.execute('''
+    CREATE TABLE IF NOT EXISTS usuarios (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        nombre TEXT NOT NULL,
+        apellido TEXT NOT NULL,
+        correo TEXT UNIQUE NOT NULL,
+        password TEXT NOT NULL
+    )
+    ''')
+    conn.commit()
+    conn.close()
 
-
+# Llamar a la función para crear la tabla si no existe
+crear_tabla()
