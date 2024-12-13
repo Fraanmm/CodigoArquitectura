@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Cuenta Admin</title>
+</head>
+<body>
+    <h1>Bienvenido, {{ usuario['nombre'] }} (Administrador)</h1>
+    <h2>Lista de Clientes</h2>
+    <ul>
+        {% for cliente in clientes %}
+            <li>
+                <h3>{{ cliente['nombre'] }} {{ cliente['apellido'] }}</h3>
+                <p>Correo: {{ cliente['correo'] }}</p>
+                <h4>Servicios Realizados:</h4>
+                <ul>
+                    {% for servicio in cliente['servicios'] %}
+                        <li>{{ servicio['nombre'] }} - {{ servicio['fecha'] }} - Comentario: {{ servicio['comentario'] }}</li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

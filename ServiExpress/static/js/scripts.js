@@ -48,7 +48,7 @@ document.querySelectorAll('.servicio-card').forEach(card => {
     });
 });
 
-// Este código es para asegurarse de que el modal se muestra correctamente
+
 var modal = document.getElementById('modalServicio');
 var modalInstance = new bootstrap.Modal(modal);
 
@@ -126,3 +126,71 @@ modal.addEventListener('hidden.bs.modal', function () {
         }
     });
 
+/*  */
+// Usuarios predefinidos
+const usuarios = [
+    {
+        id: 1,
+        nombre: "Cliente1",
+        email: "cliente1@serviexpress.com",
+        password: "cliente123",
+        rol: "cliente"
+    },
+    {
+        id: 2,
+        nombre: "Cliente2",
+        email: "cliente2@serviexpress.com",
+        password: "cliente456",
+        rol: "cliente"
+    },
+    {
+        id: 3,
+        nombre: "Admin",
+        email: "admin@serviexpress.com",
+        password: "admin123",
+        rol: "admin"
+    }
+];
+
+// Función para iniciar sesión
+async function iniciarSesion(email, password) {
+    const response = await fetch('http://127.0.0.1:5000/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, password, usuarios })
+    });
+
+    const data = await response.json();
+    if (response.ok) {
+        console.log("Inicio de sesión exitoso:", data.user);
+    } else {
+        console.error("Error de inicio de sesión:", data.message);
+    }
+}
+
+// Función para obtener clientes
+async function obtenerClientes() {
+    const response = await fetch('http://127.0.0.1:5000/clientes', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ usuarios })
+    });
+
+    const data = await response.json();
+    if (response.ok) {
+        console.log("Clientes:", data);
+    } else {
+        console.error("Error al obtener clientes");
+    }
+}
+
+// Ejemplo de uso
+// Iniciar sesión
+iniciarSesion("cliente1@serviexpress.com", "cliente123");
+
+// Obtener clientes
+obtenerClientes();

@@ -2,34 +2,57 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi Cuenta</title>
 </head>
 <body>
-    <h1>Mi Cuenta</h1>
-    <form method="POST" action="{{ url_for('cuenta') }}">
-        <!-- Datos del usuario -->
-        <input type="text" name="nombre" value="{{ usuario['nombre'] }}" placeholder="Nombre">
-        <input type="email" name="correo" value="{{ usuario['correo'] }}" placeholder="Correo">
-        <input type="text" name="datos_bancarios" value="{{ usuario.get('datos_bancarios', '') }}" placeholder="Datos Bancarios">
+    <h1>Bienvenido, {{ usuario['nombre'] }}</h1>
 
-        <!-- Datos del auto -->
-        <h3>Datos del Auto</h3>
-        <input type="text" name="marca_auto" value="{{ usuario.get('marca_auto', '') }}" placeholder="Marca del Auto">
-        <input type="text" name="modelo_auto" value="{{ usuario.get('modelo_auto', '') }}" placeholder="Modelo del Auto">
-        <input type="text" name="anio_auto" value="{{ usuario.get('anio_auto', '') }}" placeholder="Año del Auto">
-        <input type="text" name="patente_auto" value="{{ usuario.get('patente_auto', '') }}" placeholder="Patente del Auto">
+    {% if rol == 'admin' %}
+        <h2>Lista de Clientes</h2>
+        <ul>
+            {% for cliente in clientes %}
+                <li>
+                    <h3>{{ cliente['nombre'] }} {{ cliente['apellido'] }}</h3>
+                    <p>Correo: {{ cliente['correo'] }}</p>
+                    <h4>Servicios Realizados:</h4>
+                    <ul>
+                        {% for servicio in cliente['servicios'] %}
+                            <li>{{ servicio['nombre'] }} - {{ servicio['fecha'] }} - Comentario: {{ servicio['comentario'] }}</li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <h3>Información de mi Auto:</h3>
+        <p>Marca: {{ auto['marca'] }}</p>
+        <p>Modelo: {{ auto['modelo'] }}</p>
+        <p>Año: {{ auto['anio'] }}</p>
+        <p>Patente: {{ auto['patente'] }}</p>
 
-        <!-- Servicios realizados -->
-        <h3>Servicios Realizados</h3>
+        <h3>Servicios Realizados:</h3>
         <ul>
             {% for servicio in servicios_realizados %}
-                <li>{{ servicio['nombre'] }} - {{ servicio['fecha'] }}</li>
+                <li>{{ servicio['nombre'] }} - {{ servicio['fecha'] }} - Comentario: {{ servicio['comentario'] }}</li>
             {% endfor %}
         </ul>
 
-        <button type="submit">Actualizar</button>
-    </form>
+        <h3>Presupuestos:</h3>
+        <ul>
+            {% for presupuesto in presupuestos %}
+                <li>{{ presupuesto }}</li>
+            {% endfor %}
+        </ul>
+
+        <form method="post">
+            <h3>Actualizar mis datos:</h3>
+            <label for="nombre">Nombre:</label>
+            <input type="text" name="nombre" value="{{ usuario['nombre'] }}" required><br>
+            <label for="correo">Correo:</label>
+            <input type="email" name="correo" value="{{ usuario['correo'] }}" required><br>
+            <input type="submit" value="Actualizar">
+        </form>
+    {% endif %}
 </body>
 </html>
 

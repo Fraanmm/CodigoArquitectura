@@ -26,11 +26,19 @@
                     <li class="nav-item">
                         <a class="nav-link active" href="{{ url_for('index') }}">Inicio</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('login') }}">Iniciar sesión</a>
+                    <!-- Botones de inicio de sesión y registro, se muestran cuando no hay sesión -->
+                    <li class="nav-item" id="loginLi" style="display: none;">
+                        <a class="nav-link" href="{{ url_for('login') }}" id="loginBtn">Iniciar sesión</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('registro') }}">Registrarse</a>
+                    <li class="nav-item" id="registroLi" style="display: none;">
+                        <a class="nav-link" href="{{ url_for('registro') }}" id="registroBtn">Registrarse</a>
+                    </li>
+                    <!-- Botón de Mi Cuenta y Cerrar sesión, solo visibles cuando hay sesión -->
+                    <li class="nav-item" id="miCuentaLi" style="display: none;">
+                        <a class="nav-link" href="{{ url_for('cuenta') }}" id="miCuentaBtn">Mi Cuenta</a>
+                    </li>
+                    <li class="nav-item" id="cerrarSesionLi" style="display: none;">
+                        <a class="nav-link" href="{{ url_for('logout') }}" id="cerrarSesionBtn">Cerrar sesión</a>
                     </li>
                 </ul>
             </div>
@@ -41,102 +49,102 @@
     <div class="container mt-5">
         <h2 class="text-center mb-4">Nuestros Servicios</h2>
         <div class="row row-cols-1 row-cols-md-3 g-4">
-            <!-- Servicio 1 -->
-            <div class="col">
-                <div class="card h-100">
-                    <img src="{{ url_for('static', filename='images/alineacionBalanceo.jpg') }}" class="card-img-top" alt="Servicio 1">
-                    <div class="card-body">
-                        <h5 class="card-title">Alineacion Y Balanceo</h5>
-                        <p class="card-text">
-                            Se ajusta la suspensión del auto para que las llantas estén paralelas 
-                            entre sí y perpendiculares al suelo además se equilibra el peso de las 
-                            llantas y los rines para que giren sin vibraciones.
-                        </p>
-                    </div>
-                    <!-- Botón al pasar el mouse -->
-                    <div class="card-footer text-center">
-                        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#serviceModal" data-service="registroServicio">Contratar Servicio</button>
+                        <!-- Servicio 1 -->
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="{{ url_for('static', filename='images/alineacionBalanceo.jpg') }}" class="card-img-top" alt="Servicio 1">
+                                <div class="card-body">
+                                    <h5 class="card-title">Alineacion Y Balanceo</h5>
+                                    <p class="card-text">
+                                        Se ajusta la suspensión del auto para que las llantas estén paralelas 
+                                        entre sí y perpendiculares al suelo además se equilibra el peso de las 
+                                        llantas y los rines para que giren sin vibraciones.
+                                    </p>
+                                </div>
+                                <!-- Botón al pasar el mouse -->
+                                <div class="card-footer text-center">
+                                    <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#serviceModal" data-service="registroServicio">Contratar Servicio</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Servicio 2 -->
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="{{ url_for('static', filename='images/cambioAceite.jpg') }}" class="card-img-top" alt="Servicio 2">
+                                <div class="card-body">
+                                    <h5 class="card-title">Cambio Aceite</h5>
+                                    <p class="card-text">
+                                        Reemplazamos el aceite y el filtro de aceite de un vehículo por unos nuevos.</p>
+                                </div>
+                                <!-- Botón al pasar el mouse -->
+                                <div class="card-footer text-center">
+                                    <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#serviceModal" data-service="registroServicio">Contratar Servicio</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Servicio 3 -->
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="{{ url_for('static', filename='images/cambioBateria.jpg') }}" class="card-img-top" alt="Servicio 3">
+                                <div class="card-body">
+                                    <h5 class="card-title">Cambio Bateria</h5>
+                                    <p class="card-text">Descripción breve del servicio 3 que ofrecemos.</p>
+                                </div>
+                                <!-- Botón al pasar el mouse -->
+                                <div class="card-footer text-center">
+                                    <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#serviceModal" data-service="registroServicio">Contratar Servicio</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Servicio 4 -->
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="{{ url_for('static', filename='images/cambioBujias.jpg') }}" class="card-img-top" alt="Servicio 4">
+                                <div class="card-body">
+                                    <h5 class="card-title">Cambio Bujías</h5>
+                                    <p class="card-text">Se extraen las viejas y se enroscan las nuevas.</p>
+                                </div>
+                                <!-- Botón al pasar el mouse -->
+                                <div class="card-footer text-center">
+                                    <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#serviceModal" data-service="registroServicio">Contratar Servicio</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Servicio 5 -->
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="{{ url_for('static', filename='images/frenos.jpg') }}" class="card-img-top" alt="Servicio 5">
+                                <div class="card-body">
+                                    <h5 class="card-title">Frenos</h5>
+                                    <p class="card-text">
+                                        Consiste en inspeccionar el sistema de frenos del vehículo para detectar problemas o desgaste.
+                                    </p>
+                                </div>
+                                <!-- Botón al pasar el mouse -->
+                                <div class="card-footer text-center">
+                                    <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#serviceModal" data-service="registroServicio">Contratar Servicio</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Servicio 6 -->
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="{{ url_for('static', filename='images/revisionGeneral.jpg') }}" class="card-img-top" alt="Servicio 6">
+                                <div class="card-body">
+                                    <h5 class="card-title">Revision General</h5>
+                                    <p class="card-text">
+                                        En una revisión general de un auto se revisan y se realizan tareas para garantizar el buen 
+                                        funcionamiento y la seguridad del vehículo.
+                                    </p>
+                                </div>
+                                <!-- Botón al pasar el mouse -->
+                                <div class="card-footer text-center">
+                                    <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#serviceModal" data-service="registroServicio">Contratar Servicio</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <!-- Servicio 2 -->
-            <div class="col">
-                <div class="card h-100">
-                    <img src="{{ url_for('static', filename='images/cambioAceite.jpg') }}" class="card-img-top" alt="Servicio 2">
-                    <div class="card-body">
-                        <h5 class="card-title">Cambio Aceite</h5>
-                        <p class="card-text">
-                            Reemplazamos el aceite y el filtro de aceite de un vehículo por unos nuevos.</p>
-                    </div>
-                    <!-- Botón al pasar el mouse -->
-                    <div class="card-footer text-center">
-                        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#serviceModal" data-service="registroServicio">Contratar Servicio</button>
-                    </div>
-                </div>
-            </div>
-            <!-- Servicio 3 -->
-            <div class="col">
-                <div class="card h-100">
-                    <img src="{{ url_for('static', filename='images/cambioBateria.jpg') }}" class="card-img-top" alt="Servicio 3">
-                    <div class="card-body">
-                        <h5 class="card-title">Cambio Bateria</h5>
-                        <p class="card-text">Descripción breve del servicio 3 que ofrecemos.</p>
-                    </div>
-                    <!-- Botón al pasar el mouse -->
-                    <div class="card-footer text-center">
-                        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#serviceModal" data-service="registroServicio">Contratar Servicio</button>
-                    </div>
-                </div>
-            </div>
-            <!-- Servicio 4 -->
-            <div class="col">
-                <div class="card h-100">
-                    <img src="{{ url_for('static', filename='images/cambioBujias.jpg') }}" class="card-img-top" alt="Servicio 4">
-                    <div class="card-body">
-                        <h5 class="card-title">Cambio Bujías</h5>
-                        <p class="card-text">Se extraen las viejas y se enroscan las nuevas.</p>
-                    </div>
-                    <!-- Botón al pasar el mouse -->
-                    <div class="card-footer text-center">
-                        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#serviceModal" data-service="registroServicio">Contratar Servicio</button>
-                    </div>
-                </div>
-            </div>
-            <!-- Servicio 5 -->
-            <div class="col">
-                <div class="card h-100">
-                    <img src="{{ url_for('static', filename='images/frenos.jpg') }}" class="card-img-top" alt="Servicio 5">
-                    <div class="card-body">
-                        <h5 class="card-title">Frenos</h5>
-                        <p class="card-text">
-                            Consiste en inspeccionar el sistema de frenos del vehículo para detectar problemas o desgaste.
-                        </p>
-                    </div>
-                    <!-- Botón al pasar el mouse -->
-                    <div class="card-footer text-center">
-                        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#serviceModal" data-service="registroServicio">Contratar Servicio</button>
-                    </div>
-                </div>
-            </div>
-            <!-- Servicio 6 -->
-            <div class="col">
-                <div class="card h-100">
-                    <img src="{{ url_for('static', filename='images/revisionGeneral.jpg') }}" class="card-img-top" alt="Servicio 6">
-                    <div class="card-body">
-                        <h5 class="card-title">Revision General</h5>
-                        <p class="card-text">
-                            En una revisión general de un auto se revisan y se realizan tareas para garantizar el buen 
-                            funcionamiento y la seguridad del vehículo.
-                        </p>
-                    </div>
-                    <!-- Botón al pasar el mouse -->
-                    <div class="card-footer text-center">
-                        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#serviceModal" data-service="registroServicio">Contratar Servicio</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Modal para elegir opción -->
     <div class="modal fade" id="serviceModal" tabindex="-1" aria-labelledby="serviceModalLabel" aria-hidden="true">
@@ -157,6 +165,30 @@
 
     <!-- Enlazamos los scripts de Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Verificar si el usuario está en sesión
+            const usuarioEnSesion = {{ 'true' if usuario else 'false' }};
+            
+            // Obtener los elementos de la navbar
+            const loginLi = document.getElementById('loginLi');
+            const registroLi = document.getElementById('registroLi');
+            const miCuentaLi = document.getElementById('miCuentaLi');
+            const cerrarSesionLi = document.getElementById('cerrarSesionLi');
+
+            // Mostrar u ocultar elementos según el estado de sesión
+            if (usuarioEnSesion) {
+                miCuentaLi.style.display = 'block';  // Muestra el botón de "Mi Cuenta"
+                cerrarSesionLi.style.display = 'block';  // Muestra el botón de "Cerrar sesión"
+                loginLi.style.display = 'none';    // Oculta el botón de "Iniciar sesión"
+                registroLi.style.display = 'none'; // Oculta el botón de "Registrarse"
+            } else {
+                loginLi.style.display = 'block';   // Muestra el botón de "Iniciar sesión"
+                registroLi.style.display = 'block';// Muestra el botón de "Registrarse"
+                miCuentaLi.style.display = 'none'; // Oculta el botón de "Mi Cuenta"
+                cerrarSesionLi.style.display = 'none'; // Oculta el botón de "Cerrar sesión"
+            }
+        });
+    </script>
 </body>
 </html>
-
