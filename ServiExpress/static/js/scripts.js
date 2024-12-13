@@ -194,3 +194,48 @@ iniciarSesion("cliente1@serviexpress.com", "cliente123");
 
 // Obtener clientes
 obtenerClientes();
+/*  */
+
+document.getElementById('registro-form').addEventListener('submit', function(event) {
+    event.preventDefault();  // Evitar que el formulario se envíe de forma tradicional
+    
+    // Obtener los valores del formulario
+    const nombre = document.getElementById('nombre').value;
+    const apellido = document.getElementById('apellido').value;
+    const correo = document.getElementById('correo').value;
+    const password = document.getElementById('password').value;
+
+    // Crear el objeto de datos para enviar al servidor
+    const datos = {
+        nombre: nombre,
+        apellido: apellido,
+        correo: correo,
+        password: password
+    };
+
+    // Usar fetch para enviar los datos de forma asíncrona
+    fetch('/registro', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(datos)
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Mostrar el mensaje de respuesta en el HTML
+        const respuestaDiv = document.getElementById('respuesta');
+        
+        if (data.success) {
+            respuestaDiv.innerHTML = `<p style="color: green;">${data.message}</p>`;
+        } else {
+            respuestaDiv.innerHTML = `<p style="color: red;">${data.message}</p>`;
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        const respuestaDiv = document.getElementById('respuesta');
+        respuestaDiv.innerHTML = `<p style="color: red;">Hubo un error al registrar al usuario. Intenta de nuevo.</p>`;
+    });
+});
+

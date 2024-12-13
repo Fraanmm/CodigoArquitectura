@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, jsonify, session
 from werkzeug.security import generate_password_hash, check_password_hash
 
+
 app = Flask(__name__)
 app.secret_key = 'mi_clave_secreta'  # Asegúrate de cambiar esto por algo más seguro
 
@@ -41,6 +42,7 @@ def registro():
 
     return render_template('registro.html')
 
+
 # Ruta para el formulario de inicio de sesión
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -70,10 +72,10 @@ def cuenta():
     cliente = next(u for u in usuarios if u['correo'] == usuario['correo'])
     
     if usuario['rol'] == 'admin':
-        # Si es admin, mostramos todos los clientes con sus comentarios de servicios
-        return render_template('cuenta.html', clientes=usuarios, rol=usuario['rol'])
+        # Si es admin, renderizamos el template de cuenta_admin.html
+        return render_template('cuenta_admin.html', usuario=usuario, clientes=usuarios, rol=usuario['rol'])
 
-    # Si es cliente, mostramos sus datos personales, servicios realizados y presupuestos
+    # Si es cliente, renderizamos el template de cuenta.html
     servicios_realizados = cliente.get('servicios', [])
     presupuestos = cliente.get('presupuestos', [])
     auto = cliente.get('auto', {})
